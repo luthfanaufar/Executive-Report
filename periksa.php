@@ -13,10 +13,8 @@ $row 	= oci_fetch_all($query,$conn);
 if($row>=1){
 	$_SESSION['NIK']= $_POST['nik'];
 	ob_start();
-	header("Location:mainmenu.php");
+	header("Location:executive-buat.php");
 }else{
-	$_SESSION['INFO']="Username Dan Password Salah";
-	//echo "<script>alert('Username / Password salah');window.location='login.php'</script>";
 	header("Location:login.php");
 }
 ?>

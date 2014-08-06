@@ -1400,9 +1400,10 @@ pre code {
 }
 @media (min-width: 1200px) {
   .container {
-    width: 1400px;
+    width: 1450px;
   }
 }
+
 .container-fluid {
   margin-right: auto;
   margin-left: auto;
@@ -6375,9 +6376,4 @@ input:focus {
 }
 .popover {
   color: #2c3e50;
-}
-
-/* kode di bawah oleh mahasiswa kp*/
-#rekap-usulan{
-	width:auto;
 }

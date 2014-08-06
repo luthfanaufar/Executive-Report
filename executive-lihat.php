@@ -1,34 +1,12 @@
 <!DOCTYPE html>
+<?php
+include('ceksession.php');
+?>
 <html>
 <head>
 	<meta charset="utf-8">
 	<title>Executive Report</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-	<script type="text/javascript" src="executive/tinymce/tinymce.min.js"></script>
-	<script type="text/javascript">
-	tinymce.init({
-		selector: "textarea#elm1",
-		theme: "modern",
-		width: 300,
-		height: 300,
-		plugins: [
-			 "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
-			 "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-			 "save table contextmenu directionality emoticons template paste textcolor"
-	   ],
-	   content_css: "css/content.css",
-	   toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons", 
-	   style_formats: [
-			{title: 'Bold text', inline: 'b'},
-			{title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
-			{title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
-			{title: 'Example 1', inline: 'span', classes: 'example1'},
-			{title: 'Example 2', inline: 'span', classes: 'example2'},
-			{title: 'Table styles'},
-			{title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
-		]
-	 }); 
-	</script>
 </head>
 <body>
 	  
@@ -47,8 +25,8 @@
 			<li class="dropdown;active">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Executive Report <b class="caret"></b></a>
 				<ul class="dropdown-menu">
-					<li><a href="executive-buat.html">Buat Report</a></li>
-					<li><a href="executive-lihat.html">Lihat Report</a></li>
+					<li><a href="executive-buat.php">Buat Report</a></li>
+					<li><a href="executive-lihat.php">Lihat Report</a></li>
 				</ul>
 			</li>
 		</ul>
@@ -56,13 +34,13 @@
 			<li class="dropdown;active">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Subunit Urgent <b class="caret"></b></a>
 				<ul class="dropdown-menu">
-					<li><a href="subunit-buat.html">Buat Usulan</a></li>
-					<li><a href="subunit-lihat.html">Lihat Usulan</a></li>
+					<li><a href="subunit-buat.php">Buat Usulan</a></li>
+					<li><a href="subunit-lihat.php">Lihat Usulan</a></li>
 				</ul>
 			</li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
-		  <li><a href="#">Log Out</a></li>
+		  <li><a href="logout.php">Log Out</a></li>
 		</ul>
 	  </div>
 	</div>
@@ -73,6 +51,16 @@
 								
 				<!-- Rekap report -->
 				<div class="tab-pane fade active in" id="rekap-report">
+				
+				<!-- Koneksi -->
+				<?php
+					include "ociconnect.php";
+					$sql="select EREPORT.ID, SUBUNIT.NAMA AS N, TANGGAL, KARYAWAN.NAMA AS NN, KARYAWAN.NIK from EREPORT, karyawan, subunit where EREPORT.fk_karyawan = nik and subunit.id = fk_subunit order by EREPORT.TANGGAL ASC";
+					$parsesql=oci_parse($conn,$sql);
+					oci_execute($parsesql);
+				?>	
+				
+					<!-- Tabel -->
 					<table class="table table-striped table-hover ">
 						<thead>
 							<tr class="danger">
@@ -84,39 +72,28 @@
 								<th>Download</th>
 							</tr>
 						</thead>
+						
+						<!-- Load Data Ke Tabel -->
+						<?php	
+							$no=1;
+							while ($data=oci_fetch_array($parsesql)){
+							$tanggal=$data['TANGGAL'];
+							$nik = $data['NIK'];
+							$nama = $data['NN'];
+							$sub_unit = $data['N'];
+						?>
 						<tbody>
 							<tr class="active">
-								<td>1</td>
-								<td>Column content</td>
-								<td>Column content</td>
-								<td>Column content</td>
-								<td>Column content</td>
-								<td>Column content</td>
+								<td><?php echo $no; ?></td>
+								<td><?php echo $tanggal; ?></td>
+								<td><?php echo $nik; ?></td>
+								<td><?php echo $nama; ?></td>
+								<td><?php echo $sub_unit; ?></td>
+								<td><a href="tabelexe2.php?id=<?php echo $data['ID']; ?>">Download</a></td>
 							</tr>
-							<tr class="active">
-								<td>1</td>
-								<td>Column content</td>
-								<td>Column content</td>
-								<td>Column content</td>
-								<td>Column content</td>
-								<td>Column content</td>
-							</tr>
-							<tr class="active">
-								<td>1</td>
-								<td>Column content</td>
-								<td>Column content</td>
-								<td>Column content</td>
-								<td>Column content</td>
-								<td>Column content</td>
-							</tr>
-							<tr class="active">
-								<td>1</td>
-								<td>Column content</td>
-								<td>Column content</td>
-								<td>Column content</td>
-								<td>Column content</td>
-								<td>Column content</td>
-							</tr>
+						<?php 
+							$no++;}
+						?>
 						</tbody>
 					</table>
 				</div>

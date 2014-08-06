@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+include('ceksession.php');
+?>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -22,8 +25,8 @@
 			<li class="dropdown;active">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Executive Report <b class="caret"></b></a>
 				<ul class="dropdown-menu">
-					<li><a href="executive-buat.html">Buat Report</a></li>
-					<li><a href="executive-lihat.html">Lihat Report</a></li>
+					<li><a href="executive-buat.php">Buat Report</a></li>
+					<li><a href="executive-lihat.php">Lihat Report</a></li>
 				</ul>
 			</li>
 		</ul>
@@ -31,13 +34,13 @@
 			<li class="dropdown;active">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Subunit Urgent <b class="caret"></b></a>
 				<ul class="dropdown-menu">
-					<li><a href="subunit-buat.html">Buat Usulan</a></li>
-					<li><a href="subunit-lihat.html">Lihat Usulan</a></li>
+					<li><a href="subunit-buat.php">Buat Usulan</a></li>
+					<li><a href="subunit-lihat.php">Lihat Usulan</a></li>
 				</ul>
 			</li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
-		  <li><a href="#">Log Out</a></li>
+		  <li><a href="logout.php">Log Out</a></li>
 		</ul>
 	  </div>
 	</div>
@@ -47,12 +50,12 @@
 		<div id="myTabContent" class="tab-content">
 			
 			<!-- Rekap Usulan -->
-			<div class="tab-pane fade active in" id="rekap-usulan">
+			<div class="tab-pane fade active in">
 			
 			<!-- Koneksi -->
 			<?php
 				include "ociconnect.php";
-				$sql="select SUBUNIT.NAMA AS N, TANGGAL, KARYAWAN.NAMA AS NN, KARYAWAN.NIK, KEGIATAN.KEGIATAN, USULAN, SUPPORTS from KEGIATAN, karyawan, subunit where kegiatan.fk_karyawan = nik and subunit.id = fk_subunit";
+				$sql="select SUBUNIT.NAMA AS N, KEGIATAN.TANGGAL, KARYAWAN.NAMA AS NN, KARYAWAN.NIK, KEGIATAN.KEGIATAN, USULAN, SUPPORTS, KET from KEGIATAN, karyawan, subunit where kegiatan.fk_karyawan = nik and subunit.id = fk_subunit order by KEGIATAN.TANGGAL ASC";
 				$parsesql=oci_parse($conn,$sql);
 				oci_execute($parsesql);
 			?>	
@@ -84,11 +87,10 @@
 						$nama = $data['NN'];
 						$sub_unit = $data['N'];
 						$supp=nl2br($data['SUPPORTS']);
-						$ket=nl2br($data['KETERANGAN']);
+						$ket=nl2br($data['KET']);
 					?>
 					<tbody>
 						<tr class="active">
-							<td>1</td>
 							<td><?php echo $no; ?></td>
 							<td><?php echo $tanggal; ?></td>
 							<td><?php echo $nik; ?></td>

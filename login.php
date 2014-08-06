@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+
+<?php
+	session_start();
+	if(isset($_SESSION['NIK'])){
+		header("location:executive-buat.php");
+	}
+?>
+
 <html>
   <head>
     <title>Login</title>
@@ -17,19 +25,18 @@
   <body>
       <section>
         <div class="container bootshape">
-            <form class="simple-login" role="form">
+            <form class="simple-login" role="form" action="periksa.php" method="POST">
 				<div class="breadcrumb">
-                <center><img src="image/Telkom.jpg" height="70%" width="70%"/><br><br></center>
-				<h3>APLIKASI EXECUTIVE REPORT</h3><br>
+					<center><img src="image/Telkom.jpg" height="70%" width="70%"/><br><br></center>
+					<h3>APLIKASI EXECUTIVE REPORT</h3><br>
 				</div>
-                <input type="username" autofocus required placeholder="Username" class="form-control">
-                <input type="password" required placeholder="Password" class="form-control">
+                <input type="username" autofocus required placeholder="Username" class="form-control" name="nik">
+                <input type="password" required placeholder="Password" class="form-control" name="password">
                 <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
             </form>
 		</div>
       </section>
-	  
-	  
+ 	  
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery.js"></script>
 	

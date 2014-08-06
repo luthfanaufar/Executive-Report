@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+include('ceksession.php');
+?>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -22,8 +25,8 @@
 			<li class="dropdown;active">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Executive Report <b class="caret"></b></a>
 				<ul class="dropdown-menu">
-					<li><a href="executive-buat.html">Buat Report</a></li>
-					<li><a href="executive-lihat.html">Lihat Report</a></li>
+					<li><a href="executive-buat.php">Buat Report</a></li>
+					<li><a href="executive-lihat.php">Lihat Report</a></li>
 				</ul>
 			</li>
 		</ul>
@@ -31,13 +34,13 @@
 			<li class="dropdown;active">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Subunit Urgent <b class="caret"></b></a>
 				<ul class="dropdown-menu">
-					<li><a href="subunit-buat.html">Buat Usulan</a></li>
-					<li><a href="subunit-lihat.html">Lihat Usulan</a></li>
+					<li><a href="subunit-buat.php">Buat Usulan</a></li>
+					<li><a href="subunit-lihat.php">Lihat Usulan</a></li>
 				</ul>
 			</li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
-		  <li><a href="#">Log Out</a></li>
+		  <li><a href="logout.php">Log Out</a></li>
 		</ul>
 	  </div>
 	</div>
@@ -45,6 +48,7 @@
 
 		<!-- Content -->
 		<div id="myTabContent" class="tab-content">
+		<form method="post" name="subunit-form" action="submit-sub.php">
 		
 			<!-- Buat Usulan -->
 			<div class="tab-pane fade active in" id="buat-usulan">
@@ -60,7 +64,7 @@
 								Panel content
 								<div class="form-group">
 									<div class="col-lg-10">
-										<br><textarea class="form-control" rows="20%" id="textArea"></textarea>
+										<br><textarea class="form-control" rows="20%" id="textArea" name="kegiatan"></textarea>
 									</div>
 								</div>
 							</div>
@@ -77,7 +81,7 @@
 								Panel content
 								<div class="form-group">
 									<div class="col-lg-10">
-										<br><textarea class="form-control" rows="20%" id="textArea"></textarea>
+										<br><textarea class="form-control" rows="20%" id="textArea" name="usulan"></textarea>
 									</div>
 								</div>
 							</div>
@@ -94,7 +98,7 @@
 								Panel content
 								<div class="form-group">
 									<div class="col-lg-10">
-										<br><textarea class="form-control" rows="20%" id="textArea"></textarea>
+										<br><textarea class="form-control" rows="20%" id="textArea" name="supporting"></textarea>
 									</div>
 								</div>
 							</div>
@@ -111,21 +115,23 @@
 								Panel content
 								<div class="form-group">
 									<div class="col-lg-10">
-										<br><textarea class="form-control" rows="20%" id="textArea"></textarea>
+										<br><textarea class="form-control" rows="20%" id="textArea" name="keterangan"></textarea>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				
+
 				<!-- Submit dan Reset -->
 				<div align="right">
-					<br><button type="button" class="btn btn-primary">Submit</button> &nbsp &nbsp
+					<br>
+					<input type="submit" class="btn btn-primary"  value="Submit" OnClick="submitform()" /> &nbsp &nbsp
 					<input type="reset" class="btn btn-primary" value="Reset" />
 				</div>
 				<div class="rows"><br></div>
 			</div>
+		</form>
 		</div>
 	</div>
 	

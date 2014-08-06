@@ -1,0 +1,5 @@
+- Login.php masih umum. Belum ada pembagian kelas untuk user pak tapip dan user lain. OLAP?
+- executive-buat.php tidak bisa menyimpan text terlalu besar. Tidak bisa simpan image dan text dalam satu field
+- executive-lihat.php tidak bisa menampilkan waktu. Download masih raw dari web
+- subunit-buat.exe oke
+- subunit-lihat.exe panjang field gak rapih, kalau width dibesarin manual navbar(manu atas) jadi gantung gak full width
